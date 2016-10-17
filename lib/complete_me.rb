@@ -30,15 +30,14 @@ class CompleteMe
   end
   
   def populate_suggestions(letter, node, suggestions)
-    next_node = node.link_to(letter)
-    suggestions << letter if next_node.terminator
-    find_suggestions(next_node).each {|suggestion| suggestions << letter + suggestion}
+    suggestions << letter if node.terminator
+    find_suggestions(node).each {|suggestion| suggestions << letter + suggestion}
   end
   
   def find_suggestions(node)
     suggestions = []
     node_links = node.links.keys 
-    node_links.each {|letter| populate_suggestions(letter, node, suggestions)}
+    node_links.each {|letter| populate_suggestions(letter, node.link_to(letter), suggestions)}
     suggestions
   end
 
