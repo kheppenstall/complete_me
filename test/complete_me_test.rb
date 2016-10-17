@@ -30,6 +30,12 @@ class CompleteMeTest < Minitest::Test
     assert_equal 1, completion.count
   end
 
+  def test_it_keeps_track_of_words_inserted
+    completion = CompleteMe.new
+    completion.insert('pizza')
+    assert_equal 1, completion.count
+  end
+
   def test_it_inserts_multiple_words
     completion = CompleteMe.new
     completion.insert('pizza')
@@ -141,20 +147,20 @@ class CompleteMeTest < Minitest::Test
     assert_equal ['massive','massif'] , suggestion
   end
 
-  def test_it_populates_huge_file
-    completion = CompleteMe.new
-    dictionary = File.read('./test/words.txt')
-    completion.populate(dictionary)
-    assert_equal 235886, completion.count
-  end
+  # def test_it_populates_huge_file
+  #   completion = CompleteMe.new
+  #   dictionary = File.read('./test/words.txt')
+  #   completion.populate(dictionary)
+  #   assert_equal 235886, completion.count
+  # end
 
-  def test_it_populates_huge_number_of_words_and_makes_suggestions
-    completion = CompleteMe.new
-    dictionary = File.read('./test/words.txt')
-    completion.populate(dictionary)
-    suggestion = completion.suggest('aar')
-    assert_equal ["aardvark", "aardwolf"], suggestion
-  end
+  # def test_it_populates_huge_number_of_words_and_makes_suggestions
+  #   completion = CompleteMe.new
+  #   dictionary = File.read('./test/words.txt')
+  #   completion.populate(dictionary)
+  #   suggestion = completion.suggest('aar')
+  #   assert_equal ["aardvark", "aardwolf"], suggestion
+  # end
 
   def test_it_suggests_nil_when_no_words_are_there
     completion = CompleteMe.new

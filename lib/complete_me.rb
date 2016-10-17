@@ -3,18 +3,15 @@ require 'pry'
 
 class CompleteMe
 
-  attr_reader  :root_node,
-               :count
+  attr_reader  :root_node
   
   def initialize
-    @count = 0
     @root_node = Node.new
   end
 
   def add_other_letters(length, letter, characters, node)
     next_node = node.link_to(letter)
     if length == 1
-      @count += 1 unless next_node.terminator
       next_node.make_terminator
     else
       insert(characters.join, next_node)
@@ -32,6 +29,13 @@ class CompleteMe
   def populate_suggestions(letter, node, suggestions)
     suggestions << letter if node.terminator
     find_suggestions(node).each {|suggestion| suggestions << letter + suggestion}
+  end
+
+  def count(node = @root_node)
+    count = 0
+    count += 1 if node.terminator
+    count += node.links.values.reduce(0) {|sum, linked_node| sum + count(linked_node)}
+    count
   end
   
   def find_suggestions(node)
@@ -93,7 +97,6 @@ class CompleteMe
     if node.terminator
       node.remove_terminator 
       delete_nodes(word) if node.links.length == 0
-      @count -= 1
     end
   end
 
