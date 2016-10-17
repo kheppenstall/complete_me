@@ -13,15 +13,15 @@ class Node
   end
 
   def insert_link(letter)
-    @links[letter] = Node.new(letter)
+    links[letter] = Node.new(letter)
   end
 
   def link_to(letter)
-    @links[letter]
+    links[letter]
   end
 
   def includes_link?(letter)
-    @links.keys.include?(letter)
+    links.keys.include?(letter)
   end
 
   def make_terminator
@@ -38,7 +38,7 @@ class Node
   end
 
   def delete_key(letter)
-    @links.delete(letter)
+    links.delete(letter)
   end
 
   def select

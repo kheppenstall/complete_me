@@ -3,9 +3,9 @@ require 'pry'
 
 class CompleteMe
 
-  attr_reader :count,
-              :root_node
-
+  attr_reader  :root_node,
+               :count
+  
   def initialize
     @count = 0
     @root_node = Node.new
